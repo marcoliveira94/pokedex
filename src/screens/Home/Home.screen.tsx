@@ -18,6 +18,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
 
   const [search, setSearch] = useState<string>();
   const [searchResult, setSearchResult] = useState<Pokemon[]>();
+  // comment //
 
   useEffect(() => {
     navigation.setOptions({
@@ -53,7 +54,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
           numColumns={2}
           contentContainerStyle={contentContainerStyle}
           keyExtractor={(item, index) => index.toString()}
-          data={searchResult ? searchResult : data.results}
+          data={searchResult || data.results}
           renderItem={({item}) => {
             return (
               <PokemonListItem

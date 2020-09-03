@@ -1,19 +1,18 @@
-import React from 'react';
-import {View, Text, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Image, ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
 import {RootStackParamList} from '../../Router';
 import {StackScreenProps} from '@react-navigation/stack';
 import useAxios from 'axios-hooks';
 import {PokemonResponse} from '../../models/pokemonList.type';
 import {typeColors} from '../../shared/utils';
-import {useTranslation} from 'react-i18next';
 import {useDominantColor} from '../../shared/hooks/useDominantColor.hook';
 import {Color} from '../../models/color.interface';
 
 type DetailsScreenProps = StackScreenProps<RootStackParamList, 'Details'>;
-
 const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
-  const [t] = useTranslation();
+  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true);
+  const [isLoadingColor, setIsLoadingColor] = useState<boolean>(true);
   const [{data, loading}] = useAxios<PokemonResponse>({
     url: `${route.params?.url}`,
   });
@@ -23,6 +22,7 @@ const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
   }.png`;
 
   const setNavigationProps = (color: Color) => {
+    setIsLoadingColor(false);
     navigation.setOptions({
       headerStyle: {
         backgroundColor: color.background,
@@ -38,57 +38,69 @@ const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
   const {color} = useDominantColor(urlImage, 'black', setNavigationProps);
 
   if (loading) {
-    return <Text>{t('Loading...')}</Text>;
+    return (
+      <LoadingView>
+        <ActivityIndicator size="large" color="red" />
+      </LoadingView>
+    );
   }
 
   return (
-    <DetailsView>
-      <ImageWrapper color={color.background}>
-        <PokemonImage
-          source={{
-            uri: `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`,
-          }}
+    <>
+      {(isLoadingColor || isLoadingImage) && (
+        <LoadingView>
+          <ActivityIndicator size="large" color="red" />
+        </LoadingView>
+      )}
+      <DetailsView>
+        <ImageWrapper color={color.background}>
+          <PokemonImage
+            onLoadEnd={() => setIsLoadingImage(false)}
+            source={{
+              uri: `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`,
+            }}
+          />
+        </ImageWrapper>
+        <PokemonTitle>{data.name}</PokemonTitle>
+        <TypesView>
+          {data.types.map((type) => (
+            <TypesBadge color={typeColors[type.type.name]} key={type.slot}>
+              <TypesText>{type.type.name}</TypesText>
+            </TypesBadge>
+          ))}
+        </TypesView>
+        <StatBar
+          color="#d13b45"
+          full={data.stats[0].base_stat}
+          max={300}
+          name={'HP  '}
         />
-      </ImageWrapper>
-      <PokemonTitle>{data.name}</PokemonTitle>
-      <TypesView>
-        {data.types.map((type) => (
-          <TypesBadge color={typeColors[type.type.name]} key={type.slot}>
-            <TypesText>{type.type.name}</TypesText>
-          </TypesBadge>
-        ))}
-      </TypesView>
-      <StatBar
-        color="#d13b45"
-        full={data.stats[0].base_stat}
-        max={300}
-        name={'HP  '}
-      />
-      <StatBar
-        color="#fea62a"
-        full={data.stats[1].base_stat}
-        max={300}
-        name={'ATK'}
-      />
-      <StatBar
-        color="#0091e9"
-        full={data.stats[2].base_stat}
-        max={300}
-        name={'DEF'}
-      />
-      <StatBar
-        color="#8db0c3"
-        full={data.stats[5].base_stat}
-        max={300}
-        name={'SPD'}
-      />
-      <StatBar
-        color="#378d3a"
-        full={data.base_experience}
-        max={1000}
-        name={'EXP'}
-      />
-    </DetailsView>
+        <StatBar
+          color="#fea62a"
+          full={data.stats[1].base_stat}
+          max={300}
+          name={'ATK'}
+        />
+        <StatBar
+          color="#0091e9"
+          full={data.stats[2].base_stat}
+          max={300}
+          name={'DEF'}
+        />
+        <StatBar
+          color="#8db0c3"
+          full={data.stats[5].base_stat}
+          max={300}
+          name={'SPD'}
+        />
+        <StatBar
+          color="#378d3a"
+          full={data.base_experience}
+          max={1000}
+          name={'EXP'}
+        />
+      </DetailsView>
+    </>
   );
 };
 
@@ -115,6 +127,19 @@ const StatBar = ({color, full, max, name}: StatBarProps) => {
 };
 
 export default DetailsScreen;
+
+const LoadingView = styled(View)`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #2b2a2c;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+`;
 
 const DetailsView = styled(View)`
   flex: 1;
@@ -202,6 +227,6 @@ const TypesBadge = styled(View)<{color: string}>`
 `;
 
 const TypesText = styled(Text)`
-  color: white;
-  font-weight: 500;
+  color: white
+  font-weight: 500
 `;

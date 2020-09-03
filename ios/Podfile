@@ -11,6 +11,7 @@ target 'Boilerplate' do
 
   pod 'react-native-palette', :path => '../node_modules/react-native-palette'
 
+
   target 'BoilerplateTests' do
     inherit! :complete
     # Pods for testing

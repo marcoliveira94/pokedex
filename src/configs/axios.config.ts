@@ -1,8 +1,9 @@
-// import {configure} from 'axios-hooks';
-// import Axios from 'axios';
+import {configure} from 'axios-hooks';
+import LRU from 'lru-cache';
+import Axios from 'axios';
 
-// const axios = Axios.create({
-//   baseURL: 'https://api.chucknorris.io/',
-// });
+const axios = Axios.create({});
 
-// configure({axios});
+const cache = new LRU({max: 10});
+
+configure({axios, cache});
