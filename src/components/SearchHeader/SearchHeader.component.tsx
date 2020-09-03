@@ -11,7 +11,11 @@ interface SearchHeaderProps {
 const SearchHeader = ({onSearch, value, color}: SearchHeaderProps) => {
   return (
     <SearchWrapper color={color}>
-      <SearchInput onChangeText={onSearch} value={value} />
+      <SearchInput
+        testID={'search-header-input'}
+        onChangeText={onSearch}
+        value={value}
+      />
     </SearchWrapper>
   );
 };

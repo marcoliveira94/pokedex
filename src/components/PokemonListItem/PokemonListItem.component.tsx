@@ -16,7 +16,7 @@ const PokemonListItem = ({item, navigate}: PokemonListItemProps) => {
   const {color} = useDominantColor(urlImage, 'black');
   return (
     <ItemView background={color.background} onPress={navigate}>
-      <ItemImage source={{uri: urlImage}} />
+      <ItemImage testID={'pokemon-list-image'} source={{uri: urlImage}} />
       <ItemText>{item.name}</ItemText>
     </ItemView>
   );

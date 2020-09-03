@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  className="sc-AxgMl erIzRO"
+>
+  <View
+    className="sc-AxjAm bUYfNO"
+    color="red"
+  >
+    <TextInput
+      allowFontScaling={true}
+      className="sc-AxirZ ksCyHq"
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      testID="search-header-input"
+      underlineColorAndroid="transparent"
+    />
+  </View>
+</View>
+`;

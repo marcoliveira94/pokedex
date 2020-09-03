@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PokemonListItem renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+>
+  <Image
+    className="sc-AxiKw huYQCN"
+    source={
+      Object {
+        "uri": "https://pokeres.bastionbot.org/images/pokemon/38.png",
+      }
+    }
+    testID="pokemon-list-image"
+  />
+  <Text
+    className="sc-AxirZ cdGjCG"
+  >
+    pokemonName
+  </Text>
+</View>
+`;

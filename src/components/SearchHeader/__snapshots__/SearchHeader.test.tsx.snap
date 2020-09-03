@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchHeader renders correctly 1`] = `
+<View
+  className="sc-AxjAm bUYfNO"
+  color="red"
+>
+  <TextInput
+    allowFontScaling={true}
+    className="sc-AxirZ ksCyHq"
+    onChangeText={[MockFunction]}
+    rejectResponderTermination={true}
+    testID="search-header-input"
+    underlineColorAndroid="transparent"
+    value="test"
+  />
+</View>
+`;
