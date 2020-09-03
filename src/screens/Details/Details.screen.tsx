@@ -1,48 +1,48 @@
-import React, {useState} from 'react';
-import {View, Text, Image, ActivityIndicator} from 'react-native';
-import styled from 'styled-components';
-import {RootStackParamList} from '../../Router';
-import {StackScreenProps} from '@react-navigation/stack';
-import useAxios from 'axios-hooks';
-import {PokemonResponse} from '../../models/pokemonList.type';
-import {typeColors} from '../../shared/utils';
-import {useDominantColor} from '../../shared/hooks/useDominantColor.hook';
-import {Color} from '../../models/color.interface';
+import React, { useState } from 'react'
+import { View, Text, Image, ActivityIndicator } from 'react-native'
+import styled from 'styled-components'
+import { RootStackParamList } from '../../Router'
+import { StackScreenProps } from '@react-navigation/stack'
+import useAxios from 'axios-hooks'
+import { PokemonResponse } from '../../models/pokemonList.type'
+import { typeColors } from '../../shared/utils'
+import { useDominantColor } from '../../shared/hooks/useDominantColor.hook'
+import { Color } from '../../models/color.interface'
 
-type DetailsScreenProps = StackScreenProps<RootStackParamList, 'Details'>;
-const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
-  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true);
-  const [isLoadingColor, setIsLoadingColor] = useState<boolean>(true);
-  const [{data, loading}] = useAxios<PokemonResponse>({
-    url: `${route.params?.url}`,
-  });
+type DetailsScreenProps = StackScreenProps<RootStackParamList, 'Details'>
+const DetailsScreen = ({ navigation, route }: DetailsScreenProps) => {
+  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
+  const [isLoadingColor, setIsLoadingColor] = useState<boolean>(true)
+  const [{ data, loading }] = useAxios<PokemonResponse>({
+    url: `${route.params?.url}`
+  })
 
   const urlImage = `https://pokeres.bastionbot.org/images/pokemon/${
     route.params?.url.split('/')[6]
-  }.png`;
+  }.png`
 
   const setNavigationProps = (color: Color) => {
-    setIsLoadingColor(false);
+    setIsLoadingColor(false)
     navigation.setOptions({
       headerStyle: {
         backgroundColor: color.background,
         shadowRadius: 0,
         shadowOffset: {
           height: 0,
-          width: 0,
-        },
-      },
-    });
-  };
+          width: 0
+        }
+      }
+    })
+  }
 
-  const {color} = useDominantColor(urlImage, 'black', setNavigationProps);
+  const { color } = useDominantColor(urlImage, 'black', setNavigationProps)
 
   if (loading) {
     return (
       <LoadingView>
         <ActivityIndicator size="large" color="red" />
       </LoadingView>
-    );
+    )
   }
 
   return (
@@ -57,7 +57,7 @@ const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
           <PokemonImage
             onLoadEnd={() => setIsLoadingImage(false)}
             source={{
-              uri: `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`,
+              uri: `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`
             }}
           />
         </ImageWrapper>
@@ -101,17 +101,17 @@ const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
         />
       </DetailsView>
     </>
-  );
-};
-
-interface StatBarProps {
-  color: string;
-  full: number;
-  max: number;
-  name: string;
+  )
 }
 
-const StatBar = ({color, full, max, name}: StatBarProps) => {
+interface StatBarProps {
+  color: string
+  full: number
+  max: number
+  name: string
+}
+
+const StatBar = ({ color, full, max, name }: StatBarProps) => {
   return (
     <StatBarWrapper>
       <StatText>{name}</StatText>
@@ -123,10 +123,10 @@ const StatBar = ({color, full, max, name}: StatBarProps) => {
         </BarFull>
       </Bar>
     </StatBarWrapper>
-  );
-};
+  )
+}
 
-export default DetailsScreen;
+export default DetailsScreen
 
 const LoadingView = styled(View)`
   flex: 1;
@@ -139,27 +139,27 @@ const LoadingView = styled(View)`
   height: 100%;
   width: 100%;
   z-index: 999;
-`;
+`
 
 const DetailsView = styled(View)`
   flex: 1;
   align-items: center;
   /* justify-content: center; */
   background-color: #2b2a2c;
-`;
+`
 
 const PokemonImage = styled(Image)`
   width: 100px;
   height: 100px;
-`;
+`
 
 const PokemonTitle = styled(Text)`
   font-size: 30px;
   color: white;
   margin-top: 20px;
-`;
+`
 
-const ImageWrapper = styled(View)<{color: string}>`
+const ImageWrapper = styled(View)<{ color: string }>`
   align-self: stretch;
   text-align: center;
   height: 200px;
@@ -168,7 +168,7 @@ const ImageWrapper = styled(View)<{color: string}>`
   justify-content: center;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-`;
+`
 
 const StatBarWrapper = styled(View)`
   align-self: stretch;
@@ -176,7 +176,7 @@ const StatBarWrapper = styled(View)`
   flex-direction: row;
   height: 20px;
   margin-top: 20px;
-`;
+`
 
 const Bar = styled(View)`
   align-self: stretch;
@@ -187,16 +187,16 @@ const Bar = styled(View)`
   margin-right: 20px;
   border-radius: 10px;
   flex: 1;
-`;
+`
 
-const BarFull = styled(View)<{color: string; full: number}>`
+const BarFull = styled(View)<{ color: string; full: number }>`
   height: 20px;
   background-color: ${(props) => props.color};
   width: ${(props) => props.full}%;
   border-radius: 10px;
   align-items: flex-end;
   justify-content: center;
-`;
+`
 
 const StatText = styled(Text)`
   color: grey;
@@ -206,27 +206,27 @@ const StatText = styled(Text)`
   align-content: center;
   height: 100%;
   margin-left: 20px;
-`;
+`
 
 const BarText = styled(Text)`
   color: white;
   padding-right: 10px;
   padding-left: 10px;
   font-size: 10px;
-`;
+`
 
 const TypesView = styled(View)`
   flex-direction: row;
-`;
+`
 
-const TypesBadge = styled(View)<{color: string}>`
+const TypesBadge = styled(View)<{ color: string }>`
   background-color: ${(props) => props.color};
   padding: 5px 20px;
   border-radius: 20px;
   margin: 10px;
-`;
+`
 
 const TypesText = styled(Text)`
-  color: white
-  font-weight: 500
-`;
+  color: white;
+  font-weight: 500;
+`

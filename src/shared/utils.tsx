@@ -18,5 +18,5 @@ export const typeColors = {
   dark: '#6e5c47',
   fairy: '#32ddc3',
   unknown: '#a4a5a5',
-  shadow: '#302f2d',
-};
+  shadow: '#302f2d'
+}

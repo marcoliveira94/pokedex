@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import {Animated, TextInput} from 'react-native';
+import React from 'react'
+import styled from 'styled-components'
+import { Animated, TextInput } from 'react-native'
 
 interface SearchHeaderProps {
-  onSearch: (text: string) => void;
-  value?: string;
-  color: string;
+  onSearch: (text: string) => void
+  value?: string
+  color: string
 }
 
-const SearchHeader = ({onSearch, value, color}: SearchHeaderProps) => {
+const SearchHeader = ({ onSearch, value, color }: SearchHeaderProps) => {
   return (
     <SearchWrapper color={color}>
       <SearchInput
@@ -17,12 +17,12 @@ const SearchHeader = ({onSearch, value, color}: SearchHeaderProps) => {
         value={value}
       />
     </SearchWrapper>
-  );
-};
+  )
+}
 
-export default SearchHeader;
+export default SearchHeader
 
-const SearchWrapper = styled(Animated.View)<{color: string}>`
+const SearchWrapper = styled(Animated.View)<{ color: string }>`
   align-self: stretch;
   text-align: center;
   background-color: ${(props) => props.color};
@@ -31,7 +31,7 @@ const SearchWrapper = styled(Animated.View)<{color: string}>`
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   height: 200px;
-`;
+`
 
 const SearchInput = styled(TextInput)`
   width: 80%;
@@ -40,4 +40,4 @@ const SearchInput = styled(TextInput)`
   background-color: white;
   border-radius: 20px;
   padding: 10px;
-`;
+`
