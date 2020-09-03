@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<Text>
-  Loading...
-</Text>
+<View
+  className="sc-AxjAm bvfVxZ"
+>
+  <ActivityIndicator
+    animating={true}
+    color="red"
+    hidesWhenStopped={true}
+    size="large"
+  />
+</View>
 `;

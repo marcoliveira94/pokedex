@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { View, Text, Image, ActivityIndicator } from 'react-native'
 import styled from 'styled-components'
-import { RootStackParamList } from '../../Router'
-import { StackScreenProps } from '@react-navigation/stack'
 import useAxios from 'axios-hooks'
+import { StackScreenProps } from '@react-navigation/stack'
+
+import { RootStackParamList } from '../../Router'
 import { PokemonResponse } from '../../models/pokemonList.type'
 import { typeColors } from '../../shared/utils'
 import { useDominantColor } from '../../shared/hooks/useDominantColor.hook'
 import { Color } from '../../models/color.interface'
 
 type DetailsScreenProps = StackScreenProps<RootStackParamList, 'Details'>
+
 const DetailsScreen = ({ navigation, route }: DetailsScreenProps) => {
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
   const [isLoadingColor, setIsLoadingColor] = useState<boolean>(true)
@@ -144,7 +146,6 @@ const LoadingView = styled(View)`
 const DetailsView = styled(View)`
   flex: 1;
   align-items: center;
-  /* justify-content: center; */
   background-color: #2b2a2c;
 `
 

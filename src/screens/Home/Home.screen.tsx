@@ -3,9 +3,10 @@ import { View, Animated } from 'react-native'
 import styled from 'styled-components'
 import { RootStackParamList } from '../../Router'
 import useAxios from 'axios-hooks'
+import { StackScreenProps } from '@react-navigation/stack'
+
 import { PokemonListResponse, Pokemon } from '../../models/pokemonList.type'
 import { RoutesEnum } from '../../models/routes.enum'
-import { StackScreenProps } from '@react-navigation/stack'
 import SearchHeader from '../../components/SearchHeader/SearchHeader.component'
 import PokemonListItem from '../../components/PokemonListItem/PokemonListItem.component'
 
