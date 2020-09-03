@@ -6,10 +6,12 @@ import {StackScreenProps} from '@react-navigation/stack';
 import useAxios from 'axios-hooks';
 import {PokemonResponse} from '../../models/pokemonList.type';
 import {useDominantColor, typeColors, Color} from '../../shared/utils';
+import {useTranslation} from 'react-i18next';
 
 type DetailsScreenProps = StackScreenProps<RootStackParamList, 'Details'>;
 
 const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
+  const [t] = useTranslation();
   const [{data, loading}] = useAxios<PokemonResponse>({
     url: `${route.params?.url}`,
   });
@@ -34,7 +36,7 @@ const DetailsScreen = ({navigation, route}: DetailsScreenProps) => {
   const {color} = useDominantColor(urlImage, 'black', setNavigationProps);
 
   if (loading) {
-    return <Text>Loading</Text>;
+    return <Text>{t('Loading...')}</Text>;
   }
 
   return (
