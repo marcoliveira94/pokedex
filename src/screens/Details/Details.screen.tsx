@@ -5,8 +5,10 @@ import {RootStackParamList} from '../../Router';
 import {StackScreenProps} from '@react-navigation/stack';
 import useAxios from 'axios-hooks';
 import {PokemonResponse} from '../../models/pokemonList.type';
-import {useDominantColor, typeColors, Color} from '../../shared/utils';
+import {typeColors} from '../../shared/utils';
 import {useTranslation} from 'react-i18next';
+import {useDominantColor} from '../../shared/hooks/useDominantColor.hook';
+import {Color} from '../../models/color.interface';
 
 type DetailsScreenProps = StackScreenProps<RootStackParamList, 'Details'>;
 

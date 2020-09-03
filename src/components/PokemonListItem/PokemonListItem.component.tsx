@@ -1,8 +1,8 @@
 import React from 'react';
 import {Pokemon} from '../../models/pokemonList.type';
-import {useDominantColor} from '../../shared/utils';
 import styled from 'styled-components';
 import {Text, Image, TouchableOpacity, Dimensions} from 'react-native';
+import {useDominantColor} from '../../shared/hooks/useDominantColor.hook';
 
 interface PokemonListItemProps {
   item: Pokemon;
